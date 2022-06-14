@@ -1,12 +1,23 @@
 import React, { useEffect } from 'react'
-import { Box, Button, Container, Fade, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Button, Container, Fade, Flex, Heading, Image as ChakraImage, Text } from '@chakra-ui/react'
 import { ArrowRightFill } from '../Assets/custom chakra icons/Arrows/ArrowRightFill'
 import ConnectWalletModal from '../Components/ConnectWalletModal'
 var FontFaceObserver = require('fontfaceobserver')
 
+const preloadImages = [{
+	id: 0,
+	url: '/onboarding.png'
+}, {
+	id: 1,
+	url: '/stars.svg'
+}, {
+	id: 2,
+	url: '/onboarding-create-dao.png'
+}]
 
 const Home = () => {
 	const [fontLoading, setFontLoading] = React.useState(true)
+	const [imagesPreloading, setImagesPreloading] = React.useState(true)
 	const font400 = new FontFaceObserver('Neue-Haas-Grotesk-Display', {
 		weight: 400,
 		style: 'normal'
@@ -19,7 +30,33 @@ const Home = () => {
 
 	useEffect(() => {
 		Promise.all([font400.load(), font500.load()])
-			.then(() => setFontLoading(false), () => setFontLoading(false))
+			.then(
+				() => setTimeout(() => setFontLoading(false), 300),
+				() => setTimeout(() => setFontLoading(false), 300)
+			)
+	}, [])
+
+	useEffect(() => {
+		const loadImage = (image: {id: number, url: string}) => {
+			return new Promise((resolve, reject) => {
+				const loadImg = new Image()
+				loadImg.src = image.url
+				loadImg.onload = () => resolve(image.url)
+				loadImg.onerror = err => reject(err)
+				setTimeout(() => reject(new Error('Timeout')), 3000)
+			})
+		}
+
+		Promise.all(preloadImages.map(image => loadImage(image)))
+			.then(() => {
+				setImagesPreloading(false)
+				console.log('images loaded')
+			})
+			.catch(err => {
+				// Preload timeout, not stopping the app
+				console.log(err)
+				setImagesPreloading(false)
+			})
 	}, [])
 
 	const [dialogOpen, setDialogOpen] = React.useState(false)
@@ -32,7 +69,7 @@ const Home = () => {
 				zIndex={1}
 				p={5}
 			>
-				<Image
+				<ChakraImage
 					src='/questbooklogo-white.svg'
 					alt='Questbook'
 					zIndex={100}
@@ -46,7 +83,7 @@ const Home = () => {
 				bgColor={'#1F1F33'}
 				overflow={'hidden'}
 			>
-				<Fade in={!fontLoading}>
+				<Fade in={!fontLoading && !imagesPreloading}>
 					<Container
 						maxW={['container.lg', 'container.content']}
 					>
@@ -78,7 +115,7 @@ const Home = () => {
 									boxSize={'13.33px'} />
 							</Button>
 
-							<Image
+							<ChakraImage
 								pos={'absolute'}
 								top={0}
 								transform={'rotate(-24.82deg)'}
