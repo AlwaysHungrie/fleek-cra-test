@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/react": "^2.2.1",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,8 +13,11 @@
     "@types/node": "^16.11.39",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
+    "chakra-react-select": "^4.0.3",
+    "framer-motion": "^6.3.11",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.7.3",
     "web-vitals": "^2.1.4"
@@ -20,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src ./pages --ext .js,.ts,.jsx,.tsx",
+    "lint:fix": "eslint ./src ./pages --fix --ext .js,.ts,.jsx,.tsx"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +47,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@creatoros/eslint-config": "github:CreatorOS/eslint-config",
+    "eslint": "^7.32.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-unused-imports": "^2.0.0"
   }
 }
