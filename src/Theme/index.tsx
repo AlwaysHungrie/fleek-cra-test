@@ -52,6 +52,9 @@ const theme = extendTheme({
 	},
 	components: {
 		Heading: {
+			baseStyle: {
+				fontFamily: 'Neue-Haas-Grotesk-Display, sans-serif',
+			},
 			variants: {
 				content: {
 					fontSize: '2rem',
