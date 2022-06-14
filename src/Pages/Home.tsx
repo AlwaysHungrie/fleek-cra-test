@@ -42,8 +42,11 @@ const Home = () => {
 				const loadImg = new Image()
 				loadImg.src = image.url
 				loadImg.onload = () => resolve(image.url)
-				loadImg.onerror = err => reject(err)
-				setTimeout(() => reject(new Error('Timeout')), 3000)
+				loadImg.onerror = err => reject(err);
+
+				(window as any).image = loadImg
+				// timeout override, increase if onboarding ux broken for many users
+				// setTimeout(() => reject(new Error('Timeout')), 3000)
 			})
 		}
 
@@ -53,7 +56,7 @@ const Home = () => {
 				console.log('images loaded')
 			})
 			.catch(err => {
-				// Preload timeout, not stopping the app
+				// not stopping the app if images not preloaded in time
 				console.log(err)
 				setImagesPreloading(false)
 			})
