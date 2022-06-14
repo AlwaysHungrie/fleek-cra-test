@@ -12,7 +12,7 @@ function App() {
 					element={<Home />}
 				/>
 				<Route
-					path=":onboarding"
+					path="onboarding/:id"
 				>
 					<Route
 						index
