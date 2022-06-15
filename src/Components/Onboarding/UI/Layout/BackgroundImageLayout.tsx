@@ -39,7 +39,7 @@ const BackgroundImageLayout = ({
 						setTimeout(() => setImageTransitioned(true), 500)
 					}
 				}
-				opacity={imageTransitioned ? 1 : 0}
+				opacity={imageLoaded ? 1 : 0}
 				transition={'opacity 0.3s ease-in-out'}
 				{...imageLoaded ? imageProps : null}
 			/>
