@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Box, Image } from '@chakra-ui/react'
 
 const BackgroundImageLayout = ({
@@ -12,34 +13,58 @@ const BackgroundImageLayout = ({
   imageProps?: any,
   isDarkQuestbookLogo?: boolean,
   children: React.ReactNode
-}) => (
-	<Box
-		bg={imageBackgroundColor}
-		h={'100vh'}
-		w={'100%'}
-		overflow={'hidden'}>
-		<Image
-			src={imageSrc}
-			height={'100%'}
-			width={'100%'}
-			objectFit={'cover'}
-			{...imageProps}
-		/>
-
+}) => {
+	const [imageLoaded, setImageLoaded] = useState(false)
+	const [imageTransitioned, setImageTransitioned] = useState(false)
+	return (
 		<Box
-			pos={'absolute'}
-			top={0}
-			left={0}
-			zIndex={1}
-			p={5}>
+			// bg={imageTransitioned ? imageBackgroundColor : 'transparent'}
+			bg={imageBackgroundColor}
+			h={'100vh'}
+			w={'100%'}
+			overflow={'hidden'}>
 			<Image
-				src={isDarkQuestbookLogo ? '/questbooklogo-black.svg' : '/questbooklogo-white.svg'}
-				alt="Questbook"
-				zIndex={100} />
-		</Box>
+				src={imageSrc}
+				height={'100%'}
+				minHeight={'100vh'}
+				width={'100%'}
+				minWidth={'100%'}
+				objectFit={'cover'}
+				onLoad={
+					() => {
+						// setTimeout(() => {
 
-		{children}
-	</Box>
-)
+						// }, 0)
+						setImageLoaded(true)
+						setTimeout(() => setImageTransitioned(true), 500)
+					}
+				}
+				opacity={imageTransitioned ? 1 : 0}
+				transition={'opacity 0.3s ease-in-out'}
+				{...imageLoaded ? imageProps : null}
+			/>
+
+			{
+				imageTransitioned && (
+					<>
+						<Box
+							pos={'absolute'}
+							top={0}
+							left={0}
+							zIndex={1}
+							p={5}>
+							<Image
+								src={isDarkQuestbookLogo ? '/questbooklogo-black.svg' : '/questbooklogo-white.svg'}
+								alt="Questbook"
+								zIndex={100} />
+						</Box>
+
+						{children}
+					</>
+				)
+			}
+		</Box>
+	)
+}
 
 export default BackgroundImageLayout
