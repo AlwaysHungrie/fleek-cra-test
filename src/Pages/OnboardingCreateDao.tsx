@@ -7,7 +7,7 @@ import OnboardingCard from '../Components/Onboarding/UI/Layout/OnboardingCard'
 
 const OnboardingCreateDao = () => {
 	const navigate = useNavigate()
-	const [step, setStep] = useState(1)
+	const [step, setStep] = useState(0)
 	const [daoName, setDaoName] = useState<string>()
 
 	const steps = [

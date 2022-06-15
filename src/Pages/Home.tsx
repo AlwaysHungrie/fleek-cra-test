@@ -13,6 +13,12 @@ const preloadImages = [{
 }, {
 	id: 2,
 	url: '/onboarding-create-dao.png'
+}, {
+	id: 3,
+	url: '/questbooklogomini-black.svg'
+}, {
+	id: 4,
+	url: '/questbooklogo-black.svg'
 }]
 
 const Home = () => {
@@ -45,8 +51,10 @@ const Home = () => {
 				loadImg.onerror = err => reject(err);
 
 				(window as any).image = loadImg
-				// timeout override, increase if onboarding ux broken for many users
-				// setTimeout(() => reject(new Error('Timeout')), 3000)
+				// timeout override,
+				// increase if too many users are facing broken images
+				// decrease if users waiting too long
+				setTimeout(() => reject(new Error('Timeout')), 7000)
 			})
 		}
 

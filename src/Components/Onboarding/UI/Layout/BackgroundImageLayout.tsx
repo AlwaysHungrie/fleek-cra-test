@@ -18,7 +18,6 @@ const BackgroundImageLayout = ({
 	const [imageTransitioned, setImageTransitioned] = useState(false)
 	return (
 		<Box
-			// bg={imageTransitioned ? imageBackgroundColor : 'transparent'}
 			bg={imageBackgroundColor}
 			h={'100vh'}
 			w={'100%'}
@@ -26,20 +25,14 @@ const BackgroundImageLayout = ({
 			<Image
 				src={imageSrc}
 				height={'100%'}
-				// minHeight={'100vh'}
 				width={'100%'}
-				// minWidth={'100%'}
 				objectFit={'cover'}
 				onLoad={
 					() => {
-						// setTimeout(() => {
-
-						// }, 0)
 						setImageLoaded(true)
 						setTimeout(() => setImageTransitioned(true), 300)
 					}
 				}
-				// opacity={imageTransitioned ? 1 : 0}
 				transition={'opacity 0.3s'}
 				{...imageLoaded ? imageProps : null}
 			/>
