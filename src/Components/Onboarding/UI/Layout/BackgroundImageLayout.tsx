@@ -36,7 +36,7 @@ const BackgroundImageLayout = ({
 
 						// }, 0)
 						setImageLoaded(true)
-						setTimeout(() => setImageTransitioned(true), 500)
+						setTimeout(() => setImageTransitioned(true), 300)
 					}
 				}
 				// opacity={imageTransitioned ? 1 : 0}
