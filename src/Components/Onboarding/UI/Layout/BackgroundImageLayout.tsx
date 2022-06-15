@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Image } from '@chakra-ui/react'
+import { Box, Fade, Image } from '@chakra-ui/react'
 
 const BackgroundImageLayout = ({
 	imageSrc,
@@ -26,9 +26,9 @@ const BackgroundImageLayout = ({
 			<Image
 				src={imageSrc}
 				height={'100%'}
-				minHeight={'100vh'}
+				// minHeight={'100vh'}
 				width={'100%'}
-				minWidth={'100%'}
+				// minWidth={'100%'}
 				objectFit={'cover'}
 				onLoad={
 					() => {
@@ -39,30 +39,26 @@ const BackgroundImageLayout = ({
 						setTimeout(() => setImageTransitioned(true), 500)
 					}
 				}
-				opacity={imageTransitioned ? 1 : 0}
+				// opacity={imageTransitioned ? 1 : 0}
 				transition={'opacity 0.3s'}
 				{...imageLoaded ? imageProps : null}
 			/>
 
-			{
-				imageTransitioned && (
-					<>
-						<Box
-							pos={'absolute'}
-							top={0}
-							left={0}
-							zIndex={1}
-							p={5}>
-							<Image
-								src={isDarkQuestbookLogo ? '/questbooklogo-black.svg' : '/questbooklogo-white.svg'}
-								alt="Questbook"
-								zIndex={100} />
-						</Box>
+			<Fade in={imageTransitioned}>
+				<Box
+					pos={'absolute'}
+					top={0}
+					left={0}
+					zIndex={1}
+					p={5}>
+					<Image
+						src={isDarkQuestbookLogo ? '/questbooklogo-black.svg' : '/questbooklogo-white.svg'}
+						alt="Questbook"
+						zIndex={100} />
+				</Box>
 
-						{children}
-					</>
-				)
-			}
+				{children}
+			</Fade>
 		</Box>
 	)
 }
